@@ -11,7 +11,9 @@ namespace evoSim_C
         static void Main(string[] args)
         {
             Generation gen = new Generation();
-            Generation.GenPhase(64);
+            Generation.Organism[] orgsList = Generation.GenPhase(64);
+            Combat.Init(orgsList);
+            Console.ReadKey();
         }
     }
 }

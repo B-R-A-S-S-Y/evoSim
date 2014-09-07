@@ -8,13 +8,13 @@ namespace evoSim_C
 {
     class Generation
     {
-        struct Organism
+        public struct Organism
         {
             public int oAttack; public int oDefence; public int oHealth;
             public string oName;
         }
 
-        public static void GenPhase(int orgMax)
+        public static Organism[] GenPhase(int orgMax)
         {
             Organism[] orgsList = new Organism[orgMax];
             Random randNum = new Random();
@@ -23,9 +23,11 @@ namespace evoSim_C
                 orgsList[n].oAttack = randNum.Next(0, 6);
                 orgsList[n].oDefence = randNum.Next(0, 6);
                 orgsList[n].oHealth = randNum.Next(0, 6);
-                Console.WriteLine(NameGen(orgsList[n].oAttack, orgsList[n].oDefence, orgsList[n].oHealth));
+                orgsList[n].oName = NameGen(orgsList[n].oAttack, orgsList[n].oDefence, orgsList[n].oHealth);
+                Console.WriteLine(((n+1).ToString())+": "+orgsList[n].oName);
                 Console.ReadKey();
             }
+            return orgsList;
         }
         private static string NameGen(int a, int d, int h)
         {
