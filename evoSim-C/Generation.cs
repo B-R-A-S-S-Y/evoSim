@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+using System.Threading;
 
 namespace evoSim_C
 {
@@ -24,8 +24,7 @@ namespace evoSim_C
                 orgsList[n].oDefence = randNum.Next(0, 6);
                 orgsList[n].oHealth = randNum.Next(0, 6);
                 orgsList[n].oName = NameGen(orgsList[n].oAttack, orgsList[n].oDefence, orgsList[n].oHealth);
-                Console.WriteLine(((n+1).ToString())+": "+orgsList[n].oName);
-                Console.ReadKey();
+                Thread.Sleep(1000/orgsList.Length);
             }
             return orgsList;
         }

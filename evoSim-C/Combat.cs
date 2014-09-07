@@ -13,7 +13,7 @@ namespace evoSim_C
             int match = 1;
             for (int i = 1; i < orgsList.Length; i+=2)
             {
-                Console.WriteLine("Match {0}:\t {1} \tvs \t  {2}", match, orgsList[i-1].oName, orgsList[i].oName);
+                Console.WriteLine("Match {0}:\n\t {1} \tvs \t  {2}", match, orgsList[i-1].oName, orgsList[i].oName);
                 match++;
             }
         }
