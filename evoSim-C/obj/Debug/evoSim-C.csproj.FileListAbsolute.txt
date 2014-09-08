@@ -4,3 +4,9 @@ C:\Users\OEM\Documents\GitHub\evoSim\evoSim-C\bin\Debug\evoSim-C.pdb
 C:\Users\OEM\Documents\GitHub\evoSim\evoSim-C\obj\Debug\evoSim-C.csprojResolveAssemblyReference.cache
 C:\Users\OEM\Documents\GitHub\evoSim\evoSim-C\obj\Debug\evoSim-C.exe
 C:\Users\OEM\Documents\GitHub\evoSim\evoSim-C\obj\Debug\evoSim-C.pdb
+H:\C# Messarounds\evosim\evoSim-C\bin\Debug\evoSim-C.exe.config
+H:\C# Messarounds\evosim\evoSim-C\obj\Debug\evoSim-C.exe
+H:\C# Messarounds\evosim\evoSim-C\obj\Debug\evoSim-C.pdb
+H:\C# Messarounds\evosim\evoSim-C\bin\Debug\evoSim-C.exe
+H:\C# Messarounds\evosim\evoSim-C\bin\Debug\evoSim-C.pdb
+H:\C# Messarounds\evosim\evoSim-C\obj\Debug\evoSim-C.csprojResolveAssemblyReference.cache
