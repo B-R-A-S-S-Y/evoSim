@@ -19,7 +19,7 @@ namespace evoSim_C
                 roundNum++;
             }
             Console.ReadKey();
-            Console.WriteLine("FINAL ROUND: {0} VS {1}", orgsList[0].oName, orgsList[1].oName);
+            Console.WriteLine("FINAL ROUND", orgsList[0].oName, orgsList[1].oName);
             Combat.Init(orgsList);
             Console.ReadKey();
         }
