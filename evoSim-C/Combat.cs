@@ -8,16 +8,17 @@ namespace evoSim_C
 {
     class Combat
     {
-        public static void Init(Generation.Organism[] orgsList)
+        public static Generation.Organism[] Init(Generation.Organism[] orgsList)
         {
-            Generation.Organism[] winList = new Generation.Organism[orgsList.Length/2];
+            Generation.Organism[] winList = new Generation.Organism[orgsList.Length / 2];
             int match = 1;
             for (int i = 1; i < orgsList.Length; i+=2)
             {
-                Console.WriteLine("Match {0}:\n\t {1} \tvs \t  {2}", match, orgsList[i-1].oName, orgsList[i].oName);
-                CombatExec(orgsList, i-1, i);
+                Console.WriteLine("\tMatch {0}:\n\t {1} \tvs \t  {2}", match, orgsList[i-1].oName, orgsList[i].oName);
+                winList[match - 1] = CombatExec(orgsList, i-1, i);
                 match++;
             }
+            return winList;
         }
         private static Generation.Organism CombatExec(Generation.Organism[] orgsList, int org1num, int org2num)
         {
@@ -42,7 +43,7 @@ namespace evoSim_C
                     break;
                 }
             }
-            Thread.Sleep(100);
+            Thread.Sleep(10);
             if (orgsList[org1num].oHealth <= 0 && orgsList[org2num].oHealth > 0)
             {
                 Console.WriteLine("\t\t{0} is victorious!", orgsList[org2num].oName);

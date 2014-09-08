@@ -11,6 +11,15 @@ namespace evoSim_C
         static void Main(string[] args)
         {
             Generation.Organism[] orgsList = Generation.GenPhase(64);
+            int roundNum = 1;
+            while (orgsList.Length > 2)
+            {
+                Console.WriteLine("Round {0}!", roundNum);
+                orgsList = Combat.Init(orgsList);
+                roundNum++;
+            }
+            Console.ReadKey();
+            Console.WriteLine("FINAL ROUND: {0} VS {1}", orgsList[0].oName, orgsList[1].oName);
             Combat.Init(orgsList);
             Console.ReadKey();
         }
