@@ -34,8 +34,6 @@ namespace evoSim_C
                 Console.WriteLine("Round {0}!", roundNum);
                 orgsList = Combat.Init(orgsList);
                 roundNum++;
-                Console.ReadKey();
-                Console.Clear();
                 for (int i = 0; i < orgsList.Length; i++)
                 {
                     if (orgsList[i].oName == porgName)
@@ -49,16 +47,18 @@ namespace evoSim_C
                     else
                     {
                         Console.WriteLine("Defeated!");
-                        break;
+                        goto fin;
                     }
-                }
+                Console.ReadKey();
                 Console.Clear();
+                }
                 if (orgsList.Length == 2)
                 {
                     Console.WriteLine("FINAL ROUND: {0} VS {1}", orgsList[0].oName, orgsList[1].oName);
                     Combat.Init(orgsList);
                 }
             }
+            fin:
             Console.ReadKey();
         }
     }
