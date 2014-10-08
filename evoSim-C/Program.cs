@@ -28,6 +28,7 @@ namespace evoSim_C
             int playerOrg = int.Parse(Console.ReadLine())-1;
             Console.Clear();
             orgsList[playerOrg].oName = orgsList[playerOrg].oName.ToUpper();
+            string porgName = orgsList[playerOrg].oName;
             while (orgsList.Length > 1 && orgsList[playerOrg].oHealth > 0 && orgsList[playerOrg].oName != "Zombie")
             {
                 Console.WriteLine("Round {0}!", roundNum);
@@ -35,23 +36,29 @@ namespace evoSim_C
                 roundNum++;
                 Console.ReadKey();
                 Console.Clear();
-                if (orgsList[playerOrg].oHealth == 0)
+                for (int i = 0; i < orgsList.Length; i++)
                 {
-                    Console.WriteLine("Game Over: Your organism was defeated in battle.");
-                    goto fin;
+                    if (orgsList[i].oName == porgName)
+                    {
+                        playerOrg = i;
+                        if (orgsList[playerOrg].oHealth != 0 || orgsList[playerOrg].oName != "Zombie")
+                        {
+                            Event.eventCall(orgsList[playerOrg]);
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine("Defeated!");
+                        break;
+                    }
                 }
-                else
-                {
-                    Event.eventCall(orgsList[playerOrg]);
-                    Console.Clear();
-                }
+                Console.Clear();
                 if (orgsList.Length == 2)
                 {
                     Console.WriteLine("FINAL ROUND: {0} VS {1}", orgsList[0].oName, orgsList[1].oName);
                     Combat.Init(orgsList);
                 }
             }
-            fin:
             Console.ReadKey();
         }
     }
