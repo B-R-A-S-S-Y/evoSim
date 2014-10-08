@@ -27,6 +27,7 @@ namespace evoSim_C
             Generation.Organism empty = new Generation.Organism();
             empty.oAttack = 0; empty.oDefence = 0; empty.oHealth = 0; empty.oName = "Zombie";
             Random attackRoll = new Random();
+            int oHealth1 = orgsList[org1num].oHealth, oHealth2 = orgsList[org2num].oHealth; 
             while (orgsList[org1num].oHealth >= 0 && orgsList[org2num].oHealth >= 0)
             {
                 if (org1mdm > 0)
@@ -44,14 +45,16 @@ namespace evoSim_C
                 }
             }
             Thread.Sleep(10);
-            if (orgsList[org1num].oHealth <= 0 && orgsList[org2num].oHealth > 0)
+            if (orgsList[org1num].oHealth <= 0 && orgsList[org2num].oHealth > 0 || orgsList[org2num].oName == "Zombie")
             {
                 Console.WriteLine("\t\t{0} is victorious!", orgsList[org2num].oName);
+                orgsList[org2num].oHealth = oHealth2;
                 return orgsList[org2num];
             }
-            else if (orgsList[org2num].oHealth <= 0 && orgsList[org1num].oHealth > 0)
+            else if (orgsList[org2num].oHealth <= 0 && orgsList[org1num].oHealth > 0 || orgsList[org2num].oName == "Zombie")
             {
                 Console.WriteLine("\t\t{0} is victorious!", orgsList[org1num].oName);
+                orgsList[org1num].oHealth = oHealth1;
                 return orgsList[org1num];
             }
             else
