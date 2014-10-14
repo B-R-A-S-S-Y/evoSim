@@ -41,23 +41,21 @@ namespace evoSim_C
                         if (orgsList[i].oName == porgName)
                         {
                             playerOrg = i;
+                            break;
                         }
-                        else if (orgsList[i].oName != porgName && i == orgsList.Length)
+                        else if (orgsList[i].oName != porgName && i == orgsList.Length - 1)
                         {
-                            goto fin;
+                            Console.Clear();
+                            Console.WriteLine("Game Over");
+                            Console.ReadKey();
+                            break;
                         }
-
-                    }
-                    if (orgsList.Length == 2)
-                    {
-                        Console.WriteLine("Final Round: {0} vs {1}", orgsList[0].oName, orgsList[1].oName);
-                        Combat.Init(orgsList);
                     }
                     Console.ReadKey();
+                    Console.Clear();
                 }
             }
-            fin:
-            Console.ReadKey();
         }
+
     }
 }

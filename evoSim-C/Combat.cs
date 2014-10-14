@@ -19,6 +19,7 @@ namespace evoSim_C
                 winList[match - 1] = CombatExec(orgsList, i-1, i);
                 match++;
             }
+            Console.ReadKey();
             return winList;
         }
         private static Generation.Organism CombatExec(Generation.Organism[] orgsList, int org1num, int org2num)
