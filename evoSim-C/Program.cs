@@ -29,33 +29,31 @@ namespace evoSim_C
             Console.Clear();
             orgsList[playerOrg].oName = orgsList[playerOrg].oName.ToUpper();
             string porgName = orgsList[playerOrg].oName;
-            while (orgsList.Length > 1 && orgsList[playerOrg].oHealth > 0 && orgsList[playerOrg].oName != "Zombie")
+            while (orgsList.Length > 1)
             {
-                Console.WriteLine("Round {0}!", roundNum);
-                orgsList = Combat.Init(orgsList);
-                roundNum++;
-                for (int i = 0; i < orgsList.Length; i++)
+                if (playerOrg < orgsList.Length)
                 {
-                    if (orgsList[i].oName == porgName)
+                    Console.WriteLine("Round {0}:", roundNum);
+                    orgsList = Combat.Init(orgsList);
+                    roundNum++;
+                    for (int i = 0; i < orgsList.Length; i++)
                     {
-                        playerOrg = i;
-                        if (orgsList[playerOrg].oHealth != 0 || orgsList[playerOrg].oName != "Zombie")
+                        if (orgsList[i].oName == porgName)
                         {
-                            Event.eventCall(orgsList[playerOrg]);
+                            playerOrg = i;
                         }
+                        else if (orgsList[i].oName != porgName && i == orgsList.Length)
+                        {
+                            goto fin;
+                        }
+
                     }
-                    else
+                    if (orgsList.Length == 2)
                     {
-                        Console.WriteLine("Defeated!");
-                        goto fin;
+                        Console.WriteLine("Final Round: {0} vs {1}", orgsList[0].oName, orgsList[1].oName);
+                        Combat.Init(orgsList);
                     }
-                Console.ReadKey();
-                Console.Clear();
-                }
-                if (orgsList.Length == 2)
-                {
-                    Console.WriteLine("FINAL ROUND: {0} VS {1}", orgsList[0].oName, orgsList[1].oName);
-                    Combat.Init(orgsList);
+                    Console.ReadKey();
                 }
             }
             fin:

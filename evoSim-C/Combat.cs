@@ -15,6 +15,7 @@ namespace evoSim_C
             for (int i = 1; i < orgsList.Length; i+=2)
             {
                 Console.WriteLine("\tMatch {0}:\n\t {1} \tvs \t  {2}", match, orgsList[i-1].oName, orgsList[i].oName);
+                Console.WriteLine("\t{0}-{1}-{2}\t\t\t{3}-{4}-{5}", orgsList[i - 1].oAttack, orgsList[i - 1].oDefence, orgsList[i - 1].oHealth, orgsList[i].oAttack, orgsList[i].oDefence, orgsList[i].oHealth);
                 winList[match - 1] = CombatExec(orgsList, i-1, i);
                 match++;
             }
