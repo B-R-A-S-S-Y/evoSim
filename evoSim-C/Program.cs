@@ -10,11 +10,12 @@ namespace evoSim_C
     {
         static void Main(string[] args)
         {
+            start:
             Generation.Organism[] orgsList = Generation.GenPhase(64);
             int roundNum = 1;
             for (int i = 0; i < orgsList.Length; i++)
             {
-                if ((i+1) % 8 != 0)
+                if ((i+1) % 4 != 0)
                 {
                     Console.Write("{0}: {1}\t", i+1, orgsList[i].oName);
                 }
@@ -29,7 +30,8 @@ namespace evoSim_C
             Console.Clear();
             orgsList[playerOrg].oName = orgsList[playerOrg].oName.ToUpper();
             string porgName = orgsList[playerOrg].oName;
-            while (orgsList.Length > 1)
+            bool endGame = false;
+            while (orgsList.Length > 1 && !endGame)
             {
                 if (playerOrg < orgsList.Length)
                 {
@@ -47,13 +49,19 @@ namespace evoSim_C
                         {
                             Console.Clear();
                             Console.WriteLine("Game Over");
-                            Console.ReadKey();
+                            endGame = true;
                             break;
                         }
                     }
-                    Console.ReadKey();
-                    Console.Clear();
                 }
+            }
+            ConsoleKeyInfo yRead = new ConsoleKeyInfo();
+            Console.Write("Press Y to restart or any other key to break shit!");
+            yRead = Console.ReadKey(false);
+            if (yRead.Key == ConsoleKey.Y)
+            {
+                Console.Clear();
+                goto start;
             }
         }
 
