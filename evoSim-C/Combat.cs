@@ -15,9 +15,11 @@ namespace evoSim_C
             for (int i = 1; i < orgsList.Length; i+=2)
             {
                 Console.WriteLine("\tMatch {0}:\n\t {1} \tvs \t  {2}", match, orgsList[i-1].oName, orgsList[i].oName);
+                Console.WriteLine("\t{0}-{1}-{2}\t\t\t{3}-{4}-{5}", orgsList[i - 1].oAttack, orgsList[i - 1].oDefence, orgsList[i - 1].oHealth, orgsList[i].oAttack, orgsList[i].oDefence, orgsList[i].oHealth);
                 winList[match - 1] = CombatExec(orgsList, i-1, i);
                 match++;
             }
+            Console.ReadKey();
             return winList;
         }
         private static Generation.Organism CombatExec(Generation.Organism[] orgsList, int org1num, int org2num)
@@ -27,6 +29,7 @@ namespace evoSim_C
             Generation.Organism empty = new Generation.Organism();
             empty.oAttack = 0; empty.oDefence = 0; empty.oHealth = 0; empty.oName = "Zombie";
             Random attackRoll = new Random();
+            int oHealth1 = orgsList[org1num].oHealth, oHealth2 = orgsList[org2num].oHealth; 
             while (orgsList[org1num].oHealth >= 0 && orgsList[org2num].oHealth >= 0)
             {
                 if (org1mdm > 0)
@@ -44,14 +47,16 @@ namespace evoSim_C
                 }
             }
             Thread.Sleep(10);
-            if (orgsList[org1num].oHealth <= 0 && orgsList[org2num].oHealth > 0)
+            if (orgsList[org1num].oHealth <= 0 && orgsList[org2num].oHealth > 0 || orgsList[org2num].oName == "Zombie")
             {
                 Console.WriteLine("\t\t{0} is victorious!", orgsList[org2num].oName);
+                orgsList[org2num].oHealth = oHealth2;
                 return orgsList[org2num];
             }
-            else if (orgsList[org2num].oHealth <= 0 && orgsList[org1num].oHealth > 0)
+            else if (orgsList[org2num].oHealth <= 0 && orgsList[org1num].oHealth > 0 || orgsList[org2num].oName == "Zombie")
             {
                 Console.WriteLine("\t\t{0} is victorious!", orgsList[org1num].oName);
+                orgsList[org1num].oHealth = oHealth1;
                 return orgsList[org1num];
             }
             else

@@ -10,3 +10,9 @@ H:\C# Messarounds\evosim\evoSim-C\obj\Debug\evoSim-C.pdb
 H:\C# Messarounds\evosim\evoSim-C\bin\Debug\evoSim-C.exe
 H:\C# Messarounds\evosim\evoSim-C\bin\Debug\evoSim-C.pdb
 H:\C# Messarounds\evosim\evoSim-C\obj\Debug\evoSim-C.csprojResolveAssemblyReference.cache
+C:\Users\dandey18\Source\Repos\evoSim\evoSim-C\bin\Debug\evoSim-C.exe.config
+C:\Users\dandey18\Source\Repos\evoSim\evoSim-C\obj\Debug\evoSim-C.exe
+C:\Users\dandey18\Source\Repos\evoSim\evoSim-C\obj\Debug\evoSim-C.pdb
+C:\Users\dandey18\Source\Repos\evoSim\evoSim-C\bin\Debug\evoSim-C.exe
+C:\Users\dandey18\Source\Repos\evoSim\evoSim-C\bin\Debug\evoSim-C.pdb
+C:\Users\dandey18\Source\Repos\evoSim\evoSim-C\obj\Debug\evoSim-C.csprojResolveAssemblyReference.cache

@@ -20,9 +20,9 @@ namespace evoSim_C
             Random randNum = new Random();
             for (int n = 0; n < orgMax; n++)
             {
-                orgsList[n].oAttack = randNum.Next(0, 6);
-                orgsList[n].oDefence = randNum.Next(0, 6);
-                orgsList[n].oHealth = randNum.Next(0, 6);
+                orgsList[n].oAttack = randNum.Next(1, 6);
+                orgsList[n].oDefence = randNum.Next(1, 6);
+                orgsList[n].oHealth = randNum.Next(1, 6);
                 orgsList[n].oName = NameGen(orgsList[n].oAttack, orgsList[n].oDefence, orgsList[n].oHealth);
                 Thread.Sleep(1000/orgsList.Length);
             }
