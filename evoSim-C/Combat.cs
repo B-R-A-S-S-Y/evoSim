@@ -39,10 +39,7 @@ namespace evoSim_C
                 }
                 else if (org1mdm <= 0 && org2mdm <= 0)
                 {
-                    int tmpnum = attackRoll.Next(org1num, org2num + 1);
-                    string tmpnam = orgsList[tmpnum].oName;
-                    orgsList[tmpnum].oHealth = 0;
-                    Console.WriteLine("\t\t{0} was eaten by a Grue.", tmpnam);
+                    orgsList[attackRoll.Next(org1num, org2num + 1)].oHealth = 0;
                     break;
                 }
             }
