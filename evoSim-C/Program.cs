@@ -3,68 +3,88 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
 
 namespace evoSim_C
 {
-    class Program
-    {
-        static void Main(string[] args)
+class Program
+{
+    static void Main(string[] args)
         {
-            start:
+        StreamReader siLog = new StreamReader("H:/C# Messarounds/evoSim/evoSim-C/log.txt");
+        Console.WriteLine("Previous Winners:");
+        Console.Write(siLog.ReadToEnd());
+        siLog.Close();
+        Console.ReadKey();
+        Console.Clear();
+        start:
+            StreamWriter soLog = new StreamWriter("H:/C# Messarounds/evoSim/evoSim-C/log.txt", true);
             Generation.Organism[] orgsList = Generation.GenPhase(64);
             int roundNum = 1;
             for (int i = 0; i < orgsList.Length; i++)
             {
-                if ((i+1) % 4 != 0)
+                if ((i + 1) % 4 != 0)
                 {
-                    Console.Write("{0}: {1}\t", i+1, orgsList[i].oName);
+                    Console.Write("{0}: {1}\t", i + 1, orgsList[i].oName);
                 }
                 else
                 {
-                    Console.Write("{0}: {1}\n", i+1, orgsList[i].oName);
+                    Console.Write("{0}: {1}\n", i + 1, orgsList[i].oName);
                 }
-
             }
             Console.Write("Select your organism: ");
-            int playerOrg = int.Parse(Console.ReadLine())-1;
+            int playerOrg;
+            while (!int.TryParse(Console.ReadLine(), out playerOrg))
+            {
+                Console.Write("Select your organism: ");
+            }
+            playerOrg -= 1;
+            Generation.Organism player = orgsList[playerOrg];
+            Console.Write("\n\nYou selected {0}\nAttack: {1}\nDefence: {2}\nHealth: {3}\nPress Any Key to Begin", player.oName, player.oAttack, player.oDefence, player.oHealth);
+            Console.ReadKey();
             Console.Clear();
             orgsList[playerOrg].oName = orgsList[playerOrg].oName.ToUpper();
             string porgName = orgsList[playerOrg].oName;
             bool endGame = false;
-            while (orgsList.Length > 1 && !endGame)
+            while (orgsList.Length > 1)
             {
-                if (playerOrg < orgsList.Length)
+                Console.WriteLine("Round {0}:", roundNum);
+                orgsList = Combat.Init(orgsList);
+                roundNum++;
+                for (int i = 0; i < orgsList.Length; i++)
                 {
-                    Console.WriteLine("Round {0}:", roundNum);
-                    orgsList = Combat.Init(orgsList);
-                    roundNum++;
-                    for (int i = 0; i < orgsList.Length; i++)
+                    if (orgsList[i].oName == porgName)
                     {
-                        if (orgsList[i].oName == porgName)
+                        playerOrg = i;
+                        Event.eventCall(orgsList[playerOrg]);
+                        switch (Event.eventID)
                         {
-                            playerOrg = i;
-                            Event.eventCall(orgsList[playerOrg]);
-                            break;
+                            case 1001:
+                                orgsList[playerOrg].oAttack += 1;
+                                break;
+                            case 1002:
+                                orgsList[playerOrg].oDefence += 1;
+                                break;
                         }
-                        else if (orgsList[i].oName != porgName && i == orgsList.Length - 1)
-                        {
-                            Console.Clear();
-                            Console.WriteLine("------------------- Game Over! -------------------");
-                            endGame = true;
-                            break;
-                        }
+                        break;
+                    }
+                    else if (orgsList[i].oName != porgName && i == orgsList.Length - 1)
+                    {
+                        Console.Clear();
+                        Console.WriteLine("------------------- Game Over! -------------------");
+                        endGame = true;
                     }
                 }
             }
-            ConsoleKeyInfo yRead = new ConsoleKeyInfo();
+            soLog.WriteLine("{0} - {1}",orgsList[0].oName,System.DateTime.Now);
+            soLog.Close();
             Console.Write("Press Y to restart or any other key to break shit!");
-            yRead = Console.ReadKey(false);
+            ConsoleKeyInfo yRead = Console.ReadKey();
             if (yRead.Key == ConsoleKey.Y)
             {
                 Console.Clear();
                 goto start;
             }
         }
-
     }
 }
