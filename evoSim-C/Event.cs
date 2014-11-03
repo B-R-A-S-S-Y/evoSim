@@ -3,39 +3,47 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
 
 namespace evoSim_C
 {
     class Event
     {
         public static int eventID = 0;
-        private struct randEvent
+        private struct sEvent
         {
-           public string eTitle, eText, eC1text, eC2text;
+            public string Title, Text, C1text, C2text;
+            public int C1ID, C2ID;
         }
-        private static randEvent[] eventsList = new randEvent [1];
-        private static void eventAssign()
+        private static sEvent eventAssign()
         {
-            eventsList[0].eTitle = "-- Training Session! --";
-            eventsList[0].eText = "Having trained hard before your next battle, your skill has increased!";
-            eventsList[0].eC1text = "1: Increase Attack by 1";
-            eventsList[0].eC2text = "2: Increase Defence by 1";
+            Random rand = new Random();
+            Char[] f = { '-', ':' };
+            StreamReader eStream = new StreamReader("gameData/events/events.txt");
+            string[] a = eStream.ReadToEnd().Split(f[1]);
+            string[] b = a[rand.Next(0, a.Length - 2)].Split(f, StringSplitOptions.RemoveEmptyEntries);
+            sEvent c;
+            c.Title = b[1];
+            c.Text = b[2];
+            c.C1text = b[3];
+            c.C2text = b[4];
+            c.C1ID = int.Parse(b[5]);
+            c.C2ID = int.Parse(b[6]);
+            return c;
         }
         public static void eventCall(Generation.Organism org)
         {
-            eventAssign();
-            Random rand = new Random();
-            randEvent e = eventsList[rand.Next(0, eventsList.Length-1)];
-            Console.Write("{0}\n{1}\n{2}\n{3}\nSelection: ", e.eTitle, e.eText, e.eC1text, e.eC2text);
+            sEvent e = eventAssign();
+            Console.Write("{0}\n{1}\n{2}\n{3}\nSelection: ", e.Title, e.Text, e.C1text, e.C2text);
             retry:
             bool eventFired = false;
             switch (int.Parse(Console.ReadLine()))
             {
                 case 1:
-                    eventID = 1001;
+                    eventID = e.C1ID;
                     break;
                 case 2:
-                    eventID = 1002;
+                    eventID = e.C2ID;
                     break;
                 default:
                     goto retry;

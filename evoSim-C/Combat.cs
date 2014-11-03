@@ -27,37 +27,38 @@ namespace evoSim_C
         {
             int org1mdm = orgsList[org1num].oAttack - orgsList[org2num].oDefence;
             int org2mdm = orgsList[org2num].oAttack - orgsList[org1num].oDefence;
+            int org1hlt = orgsList[org1num].oHealth;
+            int org2hlt = orgsList[org2num].oHealth;
             Generation.Organism empty = new Generation.Organism();
             empty.oAttack = 0; empty.oDefence = 0; empty.oHealth = 0; empty.oName = "Zombie";
             Random attackRoll = new Random();
-            int oHealth1 = orgsList[org1num].oHealth, oHealth2 = orgsList[org2num].oHealth; 
-            while (orgsList[org1num].oHealth >= 0 && orgsList[org2num].oHealth >= 0)
+            int endRound = 0;
+            while (org1hlt > 0 && org2hlt > 0 && endRound < 5)
             {
-                if (org1mdm > 0)
+                if (org1mdm > 0 && org2mdm > 0)
                 {
-                    orgsList[org2num].oHealth -= attackRoll.Next(0, org1mdm + 1);
+                    int dmg1 = attackRoll.Next(0, org1mdm);
+                    org2hlt -= dmg1;
+                    Thread.Sleep(10);
+                    int dmg2 = attackRoll.Next(0, org2mdm);
+                    org1hlt -= dmg2;
+                    Thread.Sleep(10);
                 }
-                if (org2mdm > 0)
-                {
-                    orgsList[org2num].oHealth -= attackRoll.Next(0, org2mdm + 1);
-                }
-                else if (org1mdm <= 0 && org2mdm <= 0)
+                else if (org1mdm <= 0 || org2mdm <= 0)
                 {
                     orgsList[attackRoll.Next(org1num, org2num + 1)].oHealth = 0;
                     break;
                 }
+                endRound++;
             }
-            Thread.Sleep(10);
-            if (orgsList[org1num].oHealth <= 0 && orgsList[org2num].oHealth > 0 || orgsList[org2num].oName == "Zombie")
+            if (org1hlt <= 0 && org2hlt > 0 || orgsList[org1num].oName != "Zombie")
             {
                 Console.WriteLine("\t\t{0} is victorious!", orgsList[org2num].oName);
-                orgsList[org2num].oHealth = oHealth2;
                 return orgsList[org2num];
             }
-            else if (orgsList[org2num].oHealth <= 0 && orgsList[org1num].oHealth > 0 || orgsList[org2num].oName == "Zombie")
+            else if (org2hlt <= 0 && org1hlt > 0 || orgsList[org2num].oName != "Zombie")
             {
                 Console.WriteLine("\t\t{0} is victorious!", orgsList[org1num].oName);
-                orgsList[org1num].oHealth = oHealth1;
                 return orgsList[org1num];
             }
             else

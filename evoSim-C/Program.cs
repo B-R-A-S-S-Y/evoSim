@@ -11,14 +11,18 @@ class Program
 {
     static void Main(string[] args)
         {
-        StreamReader siLog = new StreamReader("H:/C# Messarounds/evoSim/evoSim-C/log.txt");
-        Console.WriteLine("Previous Winners:");
-        Console.Write(siLog.ReadToEnd());
+        StreamReader siLog = new StreamReader("logfile/log.txt");
+        string oldWin = siLog.ReadToEnd();
+        if (oldWin.Length > 0)
+        {
+            Console.WriteLine("Previous Winners:");
+            Console.Write(oldWin);
+            Console.ReadKey();
+        }
         siLog.Close();
-        Console.ReadKey();
         Console.Clear();
         start:
-            StreamWriter soLog = new StreamWriter("H:/C# Messarounds/evoSim/evoSim-C/log.txt", true);
+            StreamWriter soLog = new StreamWriter("logfile/log.txt", true);
             Generation.Organism[] orgsList = Generation.GenPhase(64);
             int roundNum = 1;
             for (int i = 0; i < orgsList.Length; i++)
@@ -48,12 +52,13 @@ class Program
             bool endGame = false;
             while (orgsList.Length > 1)
             {
+                Console.Clear();
                 Console.WriteLine("Round {0}:", roundNum);
                 orgsList = Combat.Init(orgsList);
                 roundNum++;
                 for (int i = 0; i < orgsList.Length; i++)
                 {
-                    if (orgsList[i].oName == porgName)
+                    if (orgsList[i].oName == porgName && orgsList.Length > 1)
                     {
                         playerOrg = i;
                         Event.eventCall(orgsList[playerOrg]);
@@ -70,13 +75,12 @@ class Program
                     }
                     else if (orgsList[i].oName != porgName && i == orgsList.Length - 1)
                     {
-                        Console.Clear();
                         Console.WriteLine("------------------- Game Over! -------------------");
                         endGame = true;
                     }
                 }
             }
-            soLog.WriteLine("{0} - {1}",orgsList[0].oName,System.DateTime.Now);
+            soLog.WriteLine("{0}\t\t-\t{1}",orgsList[0].oName,System.DateTime.Now);
             soLog.Close();
             Console.Write("Press Y to restart or any other key to break shit!");
             ConsoleKeyInfo yRead = Console.ReadKey();
