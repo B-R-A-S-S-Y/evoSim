@@ -43,12 +43,13 @@ namespace evoSim_C
                         if (orgsList[i].oName == porgName)
                         {
                             playerOrg = i;
+                            Event.eventCall(orgsList[playerOrg]);
                             break;
                         }
                         else if (orgsList[i].oName != porgName && i == orgsList.Length - 1)
                         {
                             Console.Clear();
-                            Console.WriteLine("Game Over");
+                            Console.WriteLine("------------------- Game Over! -------------------");
                             endGame = true;
                             break;
                         }

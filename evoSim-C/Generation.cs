@@ -10,8 +10,10 @@ namespace evoSim_C
     {
         public struct Organism
         {
-            public int oAttack; public int oDefence; public int oHealth;
-            public string oName;
+           public int oAttack;
+           public int oDefence;
+           public int oHealth;
+           public string oName;
         }
 
         public static Organism[] GenPhase(int orgMax)

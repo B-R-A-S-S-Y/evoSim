@@ -8,11 +8,11 @@ namespace evoSim_C
 {
     class Event
     {
-        public struct randEvent
+        private struct randEvent
         {
            public string eTitle, eText, eC1text, eC2text;
         }
-        private static randEvent[] eventsList = new randEvent [100];
+        private static randEvent[] eventsList = new randEvent [1];
         private static void eventAssign()
         {
             eventsList[0].eTitle = "-- Training Session! --";
@@ -21,11 +21,11 @@ namespace evoSim_C
             eventsList[0].eC2text = "2: Increase Defence by 1";
 
         }
-        public static randEvent eventCall(Generation.Organism org)
+        public static void eventCall(Generation.Organism org)
         {
             eventAssign();
             Random rand = new Random();
-            randEvent e = eventsList[0];
+            randEvent e = eventsList[rand.Next(0, eventsList.Length-1)];
             Console.Write("{0}\n{1}\n{2}\n{3}\nSelection: ", e.eTitle, e.eText, e.eC1text, e.eC2text);
             retry:
             switch (int.Parse(Console.ReadLine()))
@@ -39,7 +39,6 @@ namespace evoSim_C
                 default:
                     goto retry;
             }
-            return e;
         }
     }
 }
