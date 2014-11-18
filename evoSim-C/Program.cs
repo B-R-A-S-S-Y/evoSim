@@ -61,6 +61,7 @@ class Program
                     if (orgsList[i].oName == porgName && orgsList.Length > 1)
                     {
                         playerOrg = i;
+                        /*
                         Event.eventCall(orgsList[playerOrg]);
                         switch (Event.eventID)
                         {
@@ -70,7 +71,7 @@ class Program
                             case 1002:
                                 orgsList[playerOrg].oDefence += 1;
                                 break;
-                        }
+                        } */
                         break;
                     }
                     else if (orgsList[i].oName != porgName && i == orgsList.Length - 1)

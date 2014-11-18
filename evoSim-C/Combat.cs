@@ -27,36 +27,37 @@ namespace evoSim_C
         {
             int org1mdm = orgsList[org1num].oAttack - orgsList[org2num].oDefence;
             int org2mdm = orgsList[org2num].oAttack - orgsList[org1num].oDefence;
-            int org1hlt = orgsList[org1num].oHealth;
-            int org2hlt = orgsList[org2num].oHealth;
+            int[] hltArray = new int[2];
+            hltArray[0] = orgsList[org1num].oHealth;
+            hltArray[1] = orgsList[org2num].oHealth;
             Generation.Organism empty = new Generation.Organism();
             empty.oAttack = 0; empty.oDefence = 0; empty.oHealth = 0; empty.oName = "Zombie";
             Random attackRoll = new Random();
             int endRound = 0;
-            while (org1hlt > 0 && org2hlt > 0 && endRound < 5)
+            while (hltArray[0] > 0 && hltArray[1] > 0 && endRound < 5)
             {
                 if (org1mdm > 0 && org2mdm > 0)
                 {
                     int dmg1 = attackRoll.Next(0, org1mdm);
-                    org2hlt -= dmg1;
+                    hltArray[1] -= dmg1;
                     Thread.Sleep(10);
                     int dmg2 = attackRoll.Next(0, org2mdm);
-                    org1hlt -= dmg2;
+                    hltArray[0] -= dmg2;
                     Thread.Sleep(10);
                 }
                 else if (org1mdm <= 0 || org2mdm <= 0)
                 {
-                    orgsList[attackRoll.Next(org1num, org2num + 1)].oHealth = 0;
+                    hltArray[randKill()] = 0;
                     break;
                 }
                 endRound++;
             }
-            if (org1hlt <= 0 && org2hlt > 0 || orgsList[org1num].oName != "Zombie")
+            if (hltArray[0] <= 0 && hltArray[1] > 0 || orgsList[org1num].oName != "Zombie")
             {
                 Console.WriteLine("\t\t{0} is victorious!", orgsList[org2num].oName);
                 return orgsList[org2num];
             }
-            else if (org2hlt <= 0 && org1hlt > 0 || orgsList[org2num].oName != "Zombie")
+            else if (hltArray[1] <= 0 && hltArray[0] > 0 || orgsList[org2num].oName != "Zombie")
             {
                 Console.WriteLine("\t\t{0} is victorious!", orgsList[org1num].oName);
                 return orgsList[org1num];
@@ -66,6 +67,11 @@ namespace evoSim_C
                 Console.WriteLine("\t\tBoth {0} and {1} die.", orgsList[org1num].oName, orgsList[org2num].oName);
                 return empty;
             }
+        }
+        private static int randKill()
+        {
+            Random killRoll = new Random();
+            return killRoll.Next(0, 2);
         }
     }
 }
